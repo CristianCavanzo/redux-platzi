@@ -1,26 +1,21 @@
 import { PokemonList } from '@components/PokemonList';
 import { Search } from '@components/Search';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pokemon } from 'services/PokemonServices';
-import { PokemonsGetAll } from 'types/pokemons';
+import { connect } from 'react-redux';
+import { setPokemons as setPokemonsActions } from 'actions';
 
-export const getServerSideProps: GetServerSideProps<{
-    pokemons: PokemonsGetAll['results'];
-}> = async () => {
-    try {
-        const pokemon = new Pokemon();
-        const pokemons = await pokemon.getAllPokemons();
-        return { props: { pokemons: pokemons.results } };
-    } catch (e) {
-        console.log(e);
-        return { props: { pokemons: [] } };
-    }
-};
+const Home = ({ pokemons, setPokemons }) => {
+    const pokemonClass = new Pokemon();
+    useEffect(() => {
+        try {
+            (async () => {
+                const { results } = await pokemonClass.getAllPokemons();
+                setPokemons(results);
+            })();
+        } catch (error) {}
+    }, []);
 
-const Home = ({
-    pokemons,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <div className="text-principalColor">
             <h3 className="font-bold text-3xl">Pokédex</h3>
@@ -34,4 +29,11 @@ const Home = ({
     );
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+    pokemons: state.pokemons,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setPokemons: (value) => dispatch(setPokemonsActions(value)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
