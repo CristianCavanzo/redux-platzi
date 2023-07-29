@@ -2,19 +2,22 @@ import { PokemonList } from '@components/PokemonList';
 import { Search } from '@components/Search';
 import React, { useEffect } from 'react';
 import { Pokemon } from 'services/PokemonServices';
-import { connect } from 'react-redux';
-import { setPokemons as setPokemonsActions } from 'actions';
+import { setPokemons } from 'actions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Home = ({ pokemons, setPokemons }) => {
+const Home = () => {
+    const pokemons = useSelector((state: { pokemons: any }) => state.pokemons);
+    const dispatch = useDispatch();
     const pokemonClass = new Pokemon();
     useEffect(() => {
         try {
             (async () => {
                 const { results } = await pokemonClass.getAllPokemons();
-                setPokemons(results);
+                dispatch(setPokemons(results));
             })();
         } catch (error) {}
     }, []);
+    console.log(pokemons);
 
     return (
         <div className="text-principalColor">
@@ -29,11 +32,4 @@ const Home = ({ pokemons, setPokemons }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    pokemons: state.pokemons,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    setPokemons: (value) => dispatch(setPokemonsActions(value)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
