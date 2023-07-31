@@ -12,12 +12,18 @@ const Home = () => {
     useEffect(() => {
         try {
             (async () => {
-                const { results } = await pokemonClass.getAllPokemons();
-                dispatch(setPokemons(results));
+                const { results: pokemons } =
+                    await pokemonClass.getAllPokemons();
+                const pokemonDetails = await Promise.all(
+                    pokemons.map(
+                        async (pokemon) =>
+                            await pokemonClass.getPokemonDetails(pokemon.name)
+                    )
+                );
+                dispatch(setPokemons(pokemonDetails));
             })();
         } catch (error) {}
     }, []);
-    console.log(pokemons);
 
     return (
         <div className="text-principalColor">

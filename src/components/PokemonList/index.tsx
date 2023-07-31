@@ -1,14 +1,14 @@
 import { PokemonCard } from '@components/PokemonCard';
 import React from 'react';
-import { PokemonsGetAll } from 'types/pokemons';
+import { PokemonDetail } from 'types/pokemons';
 
-const PokemonList = ({ pokemons }: { pokemons: PokemonsGetAll['results'] }) => {
+const PokemonList = ({ pokemons }: { pokemons: PokemonDetail[] }) => {
     return (
         <div className="flex flex-wrap gap-2 items-center">
             {pokemons?.map((pokemon, key) => (
                 <PokemonCard
-                    key={`pokemon_${key}`}
-                    name={pokemon.name}
+                    key={`${pokemon.id}`}
+                    pokemon={pokemon}
                 ></PokemonCard>
             ))}
         </div>
