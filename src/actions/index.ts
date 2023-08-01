@@ -1,17 +1,21 @@
-import { PokemonDetail, PokemonsGetAll } from 'types/pokemons';
+import { PokemonDetail } from 'types/pokemons';
 import { PokemonActions } from './constants';
 import { Pokemon } from 'services/PokemonServices';
-import { Dispatch } from 'react';
 const pokemonClass = new Pokemon();
 
 export const setPokemons = (payload: PokemonDetail[]) => ({
     type: PokemonActions.SET_POKEMONS,
     payload,
 });
+export const setLoading = (payload: boolean) => ({
+    type: PokemonActions.ACTIVE_LOADER,
+    payload,
+});
 
 export const getPokemonDetails =
     (pokemons = []) =>
     async (dispatch) => {
+        dispatch(setLoading(true));
         const pokemonDetails = await Promise.all(
             pokemons.map(
                 async (pokemon) =>
@@ -19,4 +23,5 @@ export const getPokemonDetails =
             )
         );
         dispatch(setPokemons(pokemonDetails));
+        dispatch(setLoading(false));
     };

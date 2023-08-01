@@ -9,7 +9,7 @@ export class Pokemon {
     constructor() {}
     async getAllPokemons(): Promise<PokemonsGetAll> {
         const { data: pokemons } = await this.axios({
-            url: '/pokemon?limit=10&offset=0',
+            url: '/pokemon?limit=30&offset=0',
         });
         return pokemons;
     }

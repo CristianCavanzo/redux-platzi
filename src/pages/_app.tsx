@@ -10,11 +10,11 @@ import {
     applyMiddleware,
 } from 'redux';
 
-import { feeaturing, logger } from 'middleware';
+import { logger } from 'middleware';
+import { Loader } from '@components/Loader';
 
 let composeEnhancers = compose;
 if (typeof window !== 'undefined') {
-    console.log(window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']);
     composeEnhancers = window[
         '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'
     ] as typeof compose;
@@ -29,6 +29,7 @@ const store = createStore(
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
+            <Loader />
             <Layout>
                 <Component {...pageProps} />
             </Layout>
