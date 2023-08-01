@@ -25,3 +25,8 @@ export const getPokemonDetails =
         dispatch(setPokemons(pokemonDetails));
         dispatch(setLoading(false));
     };
+
+export const setFavorite = (payload: number) => ({
+    type: PokemonActions.SET_FAVORITE,
+    payload,
+});
