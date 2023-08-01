@@ -2,7 +2,7 @@ import { PokemonList } from '@components/PokemonList';
 import { Search } from '@components/Search';
 import React, { useEffect } from 'react';
 import { Pokemon } from 'services/PokemonServices';
-import { setPokemons } from 'actions';
+import { getPokemonDetails, setPokemons } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
@@ -14,13 +14,8 @@ const Home = () => {
             (async () => {
                 const { results: pokemons } =
                     await pokemonClass.getAllPokemons();
-                const pokemonDetails = await Promise.all(
-                    pokemons.map(
-                        async (pokemon) =>
-                            await pokemonClass.getPokemonDetails(pokemon.name)
-                    )
-                );
-                dispatch(setPokemons(pokemonDetails));
+                //@ts-ignore
+                dispatch(getPokemonDetails(pokemons));
             })();
         } catch (error) {}
     }, []);
