@@ -1,5 +1,7 @@
 export enum PokemonActions {
     'SET_POKEMONS' = 'SET_POKEMONS',
-    'ACTIVE_LOADER' = 'ACTIVE_LOADER',
     'SET_FAVORITE' = 'SET_FAVORITE',
+}
+export enum UIActions {
+    'SET_lOADER' = 'SET_lOADER',
 }

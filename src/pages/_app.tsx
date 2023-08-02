@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import '@styles/global.css';
 import { Layout } from 'Layout';
-import { pokemonsReducer } from 'reducers/pokemons';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import {
@@ -12,6 +11,7 @@ import {
 
 import { logger } from 'middleware';
 import { Loader } from '@components/Loader';
+import { rootReducer } from 'reducers/rootReducer';
 
 let composeEnhancers = compose;
 if (typeof window !== 'undefined') {
@@ -22,7 +22,7 @@ if (typeof window !== 'undefined') {
 }
 
 const store = createStore(
-    pokemonsReducer,
+    rootReducer,
     composeEnhancers(applyMiddleware(thunk, logger))
 );
 

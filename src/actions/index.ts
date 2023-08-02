@@ -1,14 +1,11 @@
 import { PokemonDetail } from 'types/pokemons';
 import { PokemonActions } from './constants';
 import { Pokemon } from 'services/PokemonServices';
+import { setLoading } from './ui';
 const pokemonClass = new Pokemon();
 
 export const setPokemons = (payload: PokemonDetail[]) => ({
     type: PokemonActions.SET_POKEMONS,
-    payload,
-});
-export const setLoading = (payload: boolean) => ({
-    type: PokemonActions.ACTIVE_LOADER,
     payload,
 });
 

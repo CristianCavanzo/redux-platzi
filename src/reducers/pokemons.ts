@@ -2,7 +2,6 @@ import { PokemonActions } from 'actions/constants';
 
 const initialState = {
     pokemons: [],
-    loading: false,
 };
 
 export const pokemonsReducer = (state = initialState, action) => {
@@ -11,11 +10,6 @@ export const pokemonsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemons: action.payload,
-            };
-        case PokemonActions.ACTIVE_LOADER:
-            return {
-                ...state,
-                loading: action.payload,
             };
         case PokemonActions.SET_FAVORITE:
             const newPokemonList = [...state.pokemons];
@@ -30,7 +24,6 @@ export const pokemonsReducer = (state = initialState, action) => {
 
             newPokemonList[indexPokemon].favorite =
                 !newPokemonList[indexPokemon].favorite;
-            console.log(newPokemonList);
 
             return {
                 ...state,

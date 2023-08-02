@@ -3,10 +3,10 @@ import { Search } from '@components/Search';
 import React, { useEffect } from 'react';
 import { Pokemon } from 'services/PokemonServices';
 import { getPokemonDetails, setPokemons } from 'actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
-    const pokemons = useSelector((state: { pokemons: any }) => state.pokemons);
+    const pokemons = useSelector((state: { data: any }) => state.data.pokemons, shallowEqual);
     const dispatch = useDispatch();
     const pokemonClass = new Pokemon();
     useEffect(() => {
