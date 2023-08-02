@@ -4,20 +4,16 @@ import React, { useEffect } from 'react';
 import { Pokemon } from 'services/PokemonServices';
 import { getPokemonDetails, setPokemons } from 'actions';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { fetchPokemonsWithDetails } from 'slices/pokemonSlice';
 
 const Home = () => {
-    const pokemons = useSelector((state: { data: any }) => state.data.pokemons, shallowEqual);
+    const pokemons = useSelector(
+        (state: { data: any }) => state.data.pokemons,
+        shallowEqual
+    );
     const dispatch = useDispatch();
-    const pokemonClass = new Pokemon();
     useEffect(() => {
-        try {
-            (async () => {
-                const { results: pokemons } =
-                    await pokemonClass.getAllPokemons();
-                //@ts-ignore
-                dispatch(getPokemonDetails(pokemons));
-            })();
-        } catch (error) {}
+        dispatch(fetchPokemonsWithDetails());
     }, []);
 
     return (

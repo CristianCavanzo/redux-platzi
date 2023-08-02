@@ -1,8 +1,8 @@
 import { StartButton } from 'Buttons/StartButton';
-import { setFavorite } from 'actions';
 import Image from 'next/image';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { setFavorite } from 'slices/pokemonSlice';
 import { PokemonDetail } from 'types/pokemons';
 interface PropsPokemon extends PokemonDetail {
     favorite: boolean;

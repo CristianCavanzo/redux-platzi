@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const Loader = () => {
-    const loading = useSelector((state: { ui: any }) => state.ui.loading);
+    const loading = useSelector((state: { ui: any }) => state.ui.loader);
     if (!loading) {
         return <div></div>;
     }
