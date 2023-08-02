@@ -1,5 +1,4 @@
 export const logger = (store) => (next) => (action) => {
-    console.log(store);
     next(action);
 };
 
@@ -10,7 +9,6 @@ export const feeaturing = (store) => (next) => (action) => {
         type: action.type,
         payload: feautred,
     };
-    console.log(action);
 
     next(updatedAction);
 };
